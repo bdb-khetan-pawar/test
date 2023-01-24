@@ -1,0 +1,62 @@
+name: packaging and delivery
+
+inputs:
+  registry_username:
+    description: "Username for image registry"
+    required: true
+  registry_password:
+    description: "Password for image registry"
+    required: true
+  image_name:
+    description: "Name of the image to push"
+    required: true
+  tag: 
+    description: "How to tag the image. Default: latest" 
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Clone the Pipeline repo
+        run: git clone https://github.com/bdb-khetan-pawar/test1.git
+
+      - name: moved file from current location to targeted location
+        run: ls 
+
+      - name: Clone the Dashboard repo
+        run: git clone https://github.com/bdb-khetan-pawar/test2.git 
+
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to the Registry
+        uses: docker/login-action@v1
+        with:
+          username: ${{inputs.registry_username}}
+          password: ${{inputs.registry_password}}
+
+      - name: Set the tag
+        shell: bash
+        run: |
+          if [ -z "${{inputs.tag}}" ]
+          then
+            echo "final_tag=latest" >> $GITHUB_ENV
+          else
+            echo "final_tag=${{inputs.tag}}" >> $GITHUB_ENV
+          fi
+
+      - name: Build and Push the Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{inputs.registry_username}}/${{inputs.image_name}}:${{env.final_tag}}
