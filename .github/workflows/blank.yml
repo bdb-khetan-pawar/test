@@ -1,23 +1,24 @@
 name: packaging and delivery
 
-inputs:
-  registry_username:
-    description: "Username for image registry"
-    required: true
-  registry_password:
-    description: "Password for image registry"
-    required: true
-  image_name:
-    description: "Name of the image to push"
-    required: true
-  tag: 
-    description: "How to tag the image. Default: latest" 
+# inputs:
+#   registry_username:
+#     description: "Username for image registry"
+#     required: true
+#   registry_password:
+#     description: "Password for image registry"
+#     required: true
+#   image_name:
+#     description: "Name of the image to push"
+#     required: true
+#   tag: 
+#     description: "How to tag the image. Default: latest" 
 
 on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: main
+    branches: [ "main" ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ "main" ]
 
 jobs:
   build:
