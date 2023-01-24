@@ -37,4 +37,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: jackpawar:latest
+          tags: jackpawar/newtest:latest
