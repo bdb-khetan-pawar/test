@@ -1,17 +1,4 @@
-name: packaging and delivery
-
-# inputs:
-#   registry_username:
-#     description: "Username for image registry"
-#     required: true
-#   registry_password:
-#     description: "Password for image registry"
-#     required: true
-#   image_name:
-#     description: "Name of the image to push"
-#     required: true
-#   tag: 
-#     description: "How to tag the image. Default: latest" 
+name: packaging and delivery 
 
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -37,13 +24,13 @@ jobs:
 #         run: git clone https://github.com/bdb-khetan-pawar/test2.git 
 
       - name: Setup BuildX
-        uses: docker/login-action@v2 --username khetan --password-stdin
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to the Registry
         uses: docker/login-action@v1
         with:
-          username: ${{inputs.registry_username}}
-          password: ${{inputs.registry_password}}
+          username: jackpawar
+          password: 7805869992
 
       - name: Set the tag
         shell: bash
