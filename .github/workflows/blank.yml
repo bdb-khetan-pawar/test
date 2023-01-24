@@ -19,7 +19,7 @@ jobs:
 
       - name: Clone the Pipeline repo
         run: |
-		  git clone https://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:github.com/bdb-khetan-pawar/test1.git
+	  git clone https://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:github.com/bdb-khetan-pawar/test1.git
 
       - name: Login to the Registry
         uses: docker/login-action@v1
